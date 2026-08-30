@@ -22,21 +22,15 @@ class AnyDigital_Widget_Scroll_Navigation extends \Elementor\Widget_Base {
 	}
 
 	public function get_icon() {
-		return 'apeiron-icon-scroll';
+		return 'eicon-scroll';
+	}
+
+	public function get_categories() {
+		return [ 'any-digital' ];
 	}
 
 	public function get_keywords() {
-		return [ 'scroll', 'auto', 'navigation', 'button', 'page scroll', 'smooth' ];
-	}
-
-	public function get_style_depends() {
-		$styles = parent::get_style_depends();
-		
-		return $styles;
-	}
-
-	public function get_script_depends() {
-		return [];
+		return [ 'scroll', 'auto', 'navigation', 'button', 'page scroll', 'smooth', 'any digital' ];
 	}
 
 	protected function register_controls() {
