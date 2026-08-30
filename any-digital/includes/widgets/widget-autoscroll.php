@@ -2262,23 +2262,29 @@ class AnyDigital_Widget_Scroll_Navigation extends \Elementor\Widget_Base {
 	}
 
 	protected function render() {
-		parent::render(); // Layer 2: disabled gate + license gate
-		if ( $this->is_widget_disabled() ) {
-			return; // Widget disabled via dashboard toggle — output nothing
-		}
-		
-
-		$settings  = $this->get_settings_for_display();
+		$settings = $this->get_settings_for_display();
 		$widget_id = $this->get_id();
 
 		// Get icon HTML
-		ob_start();
-		Icons_Manager::render_icon( $settings['button_icon_start'], [ 'aria-hidden' => 'true' ] );
-		$icon_start = ob_get_clean();
+		$icon_start = '';
+		if ( ! empty( $settings['button_icon_start']['value'] ) ) {
+			ob_start();
+			Icons_Manager::render_icon( $settings['button_icon_start'], [ 'aria-hidden' => 'true' ] );
+			$icon_start = ob_get_clean();
+		}
+		if ( empty( trim( $icon_start ) ) ) {
+			$icon_start = '<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" transform="rotate(90 12 12)"/></svg>';
+		}
 
-		ob_start();
-		Icons_Manager::render_icon( $settings['button_icon_stop'], [ 'aria-hidden' => 'true' ] );
-		$icon_stop = ob_get_clean();
+		$icon_stop = '';
+		if ( ! empty( $settings['button_icon_stop']['value'] ) ) {
+			ob_start();
+			Icons_Manager::render_icon( $settings['button_icon_stop'], [ 'aria-hidden' => 'true' ] );
+			$icon_stop = ob_get_clean();
+		}
+		if ( empty( trim( $icon_stop ) ) ) {
+			$icon_stop = '<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+		}
 
 		ob_start();
 		if ( ! empty( $settings['scroll_top_icon']['value'] ) ) {
@@ -2314,26 +2320,26 @@ class AnyDigital_Widget_Scroll_Navigation extends \Elementor\Widget_Base {
 
 		// Data attributes
 		$data = [
-			'mode'               => $settings['scroll_mode'],
-			'direction'          => $settings['scroll_direction'],
+			'mode'               => $settings['scroll_mode'] ?? 'auto',
+			'direction'          => $settings['scroll_direction'] ?? 'down',
 			'speed'              => $settings['scroll_speed']['size'] ?? 30,
-			'smoothness'         => $settings['smoothness'],
-			'easing'             => $settings['easing_type'],
-			'autoStart'          => $settings['auto_start'] === 'yes',
+			'smoothness'         => $settings['smoothness'] ?? 'ultra',
+			'easing'             => $settings['easing_type'] ?? 'linear',
+			'autoStart'          => ( $settings['auto_start'] ?? '' ) === 'yes',
 			'autoStartDelay'     => ( $settings['auto_start_delay']['size'] ?? 2 ) * 1000,
-			'pauseOnInteraction' => $settings['pause_on_interaction'] === 'yes',
-			'loopScroll'         => $settings['loop_scroll'] === 'yes',
-			'disableOnIOS'       => $settings['disable_on_ios'] === 'yes',
-			'showSpeedControl'   => $settings['show_speed_control'] === 'yes',
+			'pauseOnInteraction' => ( $settings['pause_on_interaction'] ?? '' ) === 'yes',
+			'loopScroll'         => ( $settings['loop_scroll'] ?? '' ) === 'yes',
+			'disableOnIOS'       => ( $settings['disable_on_ios'] ?? '' ) === 'yes',
+			'showSpeedControl'   => ( $settings['show_speed_control'] ?? '' ) === 'yes',
 			'speedLayout'        => $settings['speed_control_layout'] ?? 'vertical',
 			'speedPosition'      => $settings['speed_control_position'] ?? 'auto',
-			'speedDraggable'     => $settings['speed_control_draggable'] === 'yes',
-			'showTooltip'        => $settings['show_tooltip'] === 'yes',
-			'showProgress'       => $settings['show_progress'] === 'yes',
+			'speedDraggable'     => ( $settings['speed_control_draggable'] ?? '' ) === 'yes',
+			'showTooltip'        => ( $settings['show_tooltip'] ?? '' ) === 'yes',
+			'showProgress'       => ( $settings['show_progress'] ?? '' ) === 'yes',
 			'progressType'       => $settings['progress_type'] ?? 'circle',
-			'showScrollTop'      => $settings['show_scroll_top'] === 'yes',
+			'showScrollTop'      => ( $settings['show_scroll_top'] ?? '' ) === 'yes',
 			'scrollTopShowAfter' => ( $settings['scroll_top_show_after']['size'] ?? 20 ) / 100,
-			'showEndNotification' => $settings['show_end_notification'] === 'yes',
+			'showEndNotification' => ( $settings['show_end_notification'] ?? '' ) === 'yes',
 			'tooltipStart'       => $settings['tooltip_text_start'] ?? __( 'Mulai Auto Scroll', 'any-digital' ),
 			'tooltipStop'        => $settings['tooltip_text_stop'] ?? __( 'Berhenti Scroll', 'any-digital' ),
 			'endNotificationText' => $settings['end_notification_text'] ?? __( 'Anda sudah di akhir halaman!', 'any-digital' ),
@@ -2351,7 +2357,7 @@ class AnyDigital_Widget_Scroll_Navigation extends \Elementor\Widget_Base {
 			'speedControlDisappearAnimation' => $settings['speed_control_disappear_animation'] ?? 'scale',
 			'speedControlAnimationDuration' => ( $settings['speed_control_animation_duration']['size'] ?? 0.4 ) * 1000,
 			'progressAnimation'  => $settings['progress_animation_type'] ?? 'none',
-			'rippleEnabled'      => $settings['ripple_enable'] === 'yes',
+			'rippleEnabled'      => ( $settings['ripple_enable'] ?? '' ) === 'yes',
 		];
 
 
@@ -2376,7 +2382,7 @@ class AnyDigital_Widget_Scroll_Navigation extends \Elementor\Widget_Base {
 			<!-- Button Container with Progress -->
 			<div class="apeiron-btn-container">
 				<!-- Progress Circle (inside button container for proper centering) -->
-				<?php if ( $settings['show_progress'] === 'yes' && $settings['progress_type'] === 'circle' ) : ?>
+				<?php if ( ( $settings['show_progress'] ?? '' ) === 'yes' && ( $settings['progress_type'] ?? '' ) === 'circle' ) : ?>
 					<svg class="apeiron-progress-ring" viewBox="0 0 44 44">
 						<circle class="track" cx="22" cy="22" r="20" fill="none" />
 						<circle class="progress" cx="22" cy="22" r="20" fill="none" stroke-dasharray="125.6" stroke-dashoffset="125.6" />
@@ -2389,7 +2395,7 @@ class AnyDigital_Widget_Scroll_Navigation extends \Elementor\Widget_Base {
 				</button>
 
 				<!-- Ripple Rings -->
-				<?php if ( $settings['ripple_enable'] === 'yes' ) :
+				<?php if ( ( $settings['ripple_enable'] ?? '' ) === 'yes' ) :
 					$ripple_mode = $settings['ripple_mode'] ?? 'infinite';
 				?>
 					<span class="ak-ripple-ring ripple-mode-<?php echo esc_attr( $ripple_mode ); ?>"></span>
@@ -2399,21 +2405,21 @@ class AnyDigital_Widget_Scroll_Navigation extends \Elementor\Widget_Base {
 				<?php endif; ?>
 
 				<!-- Tooltip -->
-				<?php if ( $settings['show_tooltip'] === 'yes' ) : ?>
+				<?php if ( ( $settings['show_tooltip'] ?? '' ) === 'yes' ) : ?>
 					<div class="apeiron-scroll-tooltip"><?php echo esc_html( $data['tooltipStart'] ); ?></div>
 				<?php endif; ?>
 
 				<!-- End Notification -->
-				<?php if ( $settings['show_end_notification'] === 'yes' ) : ?>
+				<?php if ( ( $settings['show_end_notification'] ?? '' ) === 'yes' ) : ?>
 					<div class="apeiron-end-notification" role="alert" aria-live="polite" style="opacity: 0; visibility: hidden;"><?php echo esc_html( $data['endNotificationText'] ); ?></div>
 				<?php endif; ?>
 			</div>
 
 			<!-- Speed Control -->
-			<?php if ( $settings['show_speed_control'] === 'yes' ) : 
+			<?php if ( ( $settings['show_speed_control'] ?? '' ) === 'yes' ) : 
 				$speed_layout = $settings['speed_control_layout'] ?? 'vertical';
 				$speed_position = $settings['speed_control_position'] ?? 'auto';
-				$speed_draggable = $settings['speed_control_draggable'] === 'yes';
+				$speed_draggable = ( $settings['speed_control_draggable'] ?? '' ) === 'yes';
 			?>
 				<div class="apeiron-speed-control layout-<?php echo esc_attr( $speed_layout ); ?> pos-<?php echo esc_attr( $speed_position ); ?><?php echo $speed_draggable ? ' draggable' : ''; ?>">
 					<?php if ( $speed_draggable ) : ?>
@@ -2425,7 +2431,7 @@ class AnyDigital_Widget_Scroll_Navigation extends \Elementor\Widget_Base {
 						<input type="range" class="apeiron-speed-slider" min="1" max="100" value="<?php echo esc_attr( $data['speed'] ); ?>" orient="<?php echo $speed_layout === 'vertical' ? 'vertical' : ''; ?>" aria-label="<?php esc_attr_e( 'Scroll speed', 'any-digital' ); ?>">
 						<span class="speed-value"><?php echo esc_html( $data['speed'] ); ?></span>
 					</div>
-					<?php if ( $settings['show_speed_arrows'] === 'yes' ) : 
+					<?php if ( ( $settings['show_speed_arrows'] ?? '' ) === 'yes' ) : 
 					?>
 					<div class="speed-arrows">
 						<button type="button" class="speed-arrow speed-minus" aria-label="<?php esc_attr_e( 'Kurangi Kecepatan', 'any-digital' ); ?>">
@@ -2444,14 +2450,14 @@ class AnyDigital_Widget_Scroll_Navigation extends \Elementor\Widget_Base {
 			<?php endif; ?>
 
 			<!-- Scroll to Top Button (appears after scroll complete) -->
-			<?php if ( $settings['show_scroll_top'] === 'yes' ) : ?>
+			<?php if ( ( $settings['show_scroll_top'] ?? '' ) === 'yes' ) : ?>
 				<button class="apeiron-scroll-top-btn" type="button" aria-label="<?php esc_attr_e( 'Scroll ke Atas', 'any-digital' ); ?>">
 					<?php echo $icon_scroll_top; // phpcs:ignore ?>
 				</button>
 			<?php endif; ?>
 
 			<!-- Progress Bar (alternative) -->
-			<?php if ( $settings['show_progress'] === 'yes' && $settings['progress_type'] === 'bar' ) : ?>
+			<?php if ( ( $settings['show_progress'] ?? '' ) === 'yes' && ( $settings['progress_type'] ?? '' ) === 'bar' ) : ?>
 				<div class="apeiron-progress-bar">
 					<div class="bar-fill"></div>
 				</div>
