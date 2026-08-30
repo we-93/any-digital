@@ -1,0 +1,9 @@
+# Ignore IDE & Temp Files
+.gemini/
+.vscode/
+.idea/
+*.log
+
+# Ignore Source Reference Kits
+elkit/
+apeiron/

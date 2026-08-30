@@ -1,0 +1,162 @@
+/* Any Digital - Timeline Story Widget Styles */
+
+.any-digital-timeline-wrapper {
+	position: relative;
+	width: 100%;
+	margin: 20px 0;
+	padding: 10px 0;
+}
+
+/* Timeline Line */
+.any-digital-timeline-line {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 50%;
+	width: 3px;
+	background-color: #c89556;
+	transform: translateX(-50%);
+	z-index: 1;
+}
+
+.any-digital-timeline-wrapper.align-left .any-digital-timeline-line {
+	left: 20px;
+	transform: none;
+}
+
+.any-digital-timeline-wrapper.align-right .any-digital-timeline-line {
+	left: auto;
+	right: 20px;
+	transform: none;
+}
+
+.any-digital-timeline-container {
+	position: relative;
+	z-index: 2;
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+}
+
+.any-digital-timeline-item {
+	position: relative;
+	display: flex;
+	width: 100%;
+}
+
+/* Center Layout: Alternating Odd / Even */
+.any-digital-timeline-wrapper.align-center .any-digital-timeline-item.odd-item {
+	justify-content: flex-start;
+	padding-right: calc(50% + 25px);
+	box-sizing: border-box;
+}
+
+.any-digital-timeline-wrapper.align-center .any-digital-timeline-item.even-item {
+	justify-content: flex-end;
+	padding-left: calc(50% + 25px);
+	box-sizing: border-box;
+}
+
+.any-digital-timeline-wrapper.align-left .any-digital-timeline-item {
+	justify-content: flex-start;
+	padding-left: 50px;
+	box-sizing: border-box;
+}
+
+.any-digital-timeline-wrapper.align-right .any-digital-timeline-item {
+	justify-content: flex-end;
+	padding-right: 50px;
+	box-sizing: border-box;
+}
+
+/* Marker Icon */
+.any-digital-timeline-marker {
+	position: absolute;
+	top: 15px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	background-color: #c89556;
+	color: #ffffff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+	z-index: 3;
+	box-shadow: 0 0 0 4px #ffffff, 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.any-digital-timeline-wrapper.align-left .any-digital-timeline-marker {
+	left: 20px;
+	transform: translateX(-50%);
+}
+
+.any-digital-timeline-wrapper.align-right .any-digital-timeline-marker {
+	left: auto;
+	right: 20px;
+	transform: translateX(50%);
+}
+
+/* Card */
+.any-digital-timeline-card {
+	position: relative;
+	width: 100%;
+	background: #ffffff;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+	box-sizing: border-box;
+}
+
+.any-digital-timeline-date {
+	font-size: 0.9rem;
+	font-weight: 600;
+	color: #c89556;
+	margin-bottom: 6px;
+}
+
+.any-digital-timeline-title {
+	font-size: 1.2rem;
+	font-weight: 700;
+	color: #333333;
+	margin: 0 0 10px 0;
+}
+
+.any-digital-timeline-img {
+	margin-bottom: 12px;
+}
+
+.any-digital-timeline-img img {
+	width: 100%;
+	height: auto;
+	border-radius: 8px;
+	display: block;
+}
+
+.any-digital-timeline-desc {
+	font-size: 0.95rem;
+	color: #666666;
+	line-height: 1.6;
+}
+
+/* Responsive Mobile */
+@media (max-width: 767px) {
+	.any-digital-timeline-line {
+		left: 20px !important;
+		transform: none !important;
+	}
+
+	.any-digital-timeline-marker {
+		left: 20px !important;
+		transform: translateX(-50%) !important;
+	}
+
+	.any-digital-timeline-item.odd-item,
+	.any-digital-timeline-item.even-item {
+		justify-content: flex-start !important;
+		padding-left: 50px !important;
+		padding-right: 0 !important;
+	}
+}

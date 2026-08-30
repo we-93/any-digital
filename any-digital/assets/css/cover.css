@@ -1,0 +1,166 @@
+/* Any Digital - Standard Invitation Cover Widget Styles (Berdasarkan wellcome.php elkit) */
+
+body.any-digital-cover-active {
+	overflow: hidden !important;
+}
+
+.modalx {
+	position: fixed;
+	z-index: 99999;
+	width: 100%;
+	height: 100%;
+	height: 100dvh;
+	top: 0;
+	left: 0;
+	background-color: transparent;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	transform: translateY(0);
+	transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+.overlayy {
+	background-color: #000000;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	opacity: 0.65;
+}
+
+.content-modalx {
+	background-color: transparent;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+	top: 0;
+	left: 0;
+	color: #ffffff;
+	padding: 20px;
+	box-sizing: border-box;
+	overflow-y: auto;
+}
+
+.info_modalx {
+	width: 100%;
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	margin: 0 auto;
+	max-width: 650px;
+}
+
+.info_modalx > div {
+	width: auto;
+	text-align: center;
+	height: auto;
+}
+
+.elementor-image.img img {
+	display: block;
+	margin: 0 auto 15px auto;
+	max-width: 100%;
+	height: auto;
+}
+
+.wdp-txt-the-wedding {
+	color: #ffffff;
+	font-size: 1.1rem;
+	margin-bottom: 8px;
+}
+
+.wdp-mempelai {
+	color: #ffffff;
+	font-size: 2.2rem;
+	font-weight: 700;
+	line-height: 1.2;
+	margin-bottom: 10px;
+}
+
+.wdp-tgl {
+	color: #ffffff;
+	font-size: 1rem;
+	margin-bottom: 12px;
+}
+
+.wdp-dear {
+	color: #ffffff;
+	font-size: 1rem;
+	margin-top: 15px;
+}
+
+.wdp-name {
+	font-weight: 600;
+	color: #ffffff;
+	font-size: 1.5rem;
+	margin-top: 15px;
+}
+
+.wdp-text {
+	color: #ffffff;
+	font-size: 1rem;
+	line-height: 1.6;
+	margin-top: 15px;
+	max-width: 550px;
+}
+
+.wdp-button-wrapper {
+	margin-top: 15px;
+}
+
+.wdp-button-wrapper button.elementor-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	padding: 12px 28px;
+	font-size: 1rem;
+	font-weight: 600;
+	border: none;
+	border-radius: 50px;
+	background-color: #c89556;
+	color: #ffffff;
+	cursor: pointer;
+	text-decoration: none;
+	transition: all 0.3s ease;
+}
+
+.wdp-button-wrapper button.elementor-button:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.wdp-keterangan {
+	font-size: 0.85rem;
+	color: #e0e0e0;
+	margin-top: 15px;
+	font-style: italic;
+}
+
+/* Transisi Penutupan Cover */
+.modalx.removeModals {
+	transform: translateY(200%);
+	opacity: 0;
+	pointer-events: none;
+}
+
+/* Penyesuaian saat berada di Editor Elementor */
+.elementor-editor-active .modalx {
+	position: relative !important;
+	height: auto !important;
+	min-height: 500px !important;
+	z-index: 1 !important;
+	transform: none !important;
+	opacity: 1 !important;
+}
+
+.elementor-editor-active body.any-digital-cover-active {
+	overflow: auto !important;
+}

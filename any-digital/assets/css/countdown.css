@@ -1,0 +1,67 @@
+/* Any Digital - Countdown Timer Widget Styles */
+
+.any-digital-countdown-wrapper {
+	display: block;
+	width: 100%;
+}
+
+.any-digital-countdown-items {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 12px;
+}
+
+.any-digital-countdown-item {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.any-digital-countdown-item-inner {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 15px 20px;
+	background: #f8f9fa;
+	border-radius: 8px;
+	min-width: 70px;
+}
+
+.any-digital-countdown-inline .any-digital-countdown-item-inner {
+	flex-direction: row;
+	gap: 6px;
+}
+
+.any-digital-countdown-digits {
+	font-size: 2.2rem;
+	font-weight: 700;
+	line-height: 1;
+	color: #333333;
+}
+
+.any-digital-countdown-label {
+	font-size: 0.9rem;
+	font-weight: 500;
+	line-height: 1.2;
+	color: #666666;
+	margin-top: 4px;
+}
+
+.any-digital-countdown-inline .any-digital-countdown-label {
+	margin-top: 0;
+}
+
+.any-digital-countdown-separator {
+	list-style: none;
+	font-size: 2rem;
+	font-weight: 700;
+	color: #333333;
+	line-height: 1;
+	align-self: center;
+}
